@@ -11,50 +11,18 @@ def screen_splash(ezpass)
 end
 
 def first_screen(ezpass)
-<<-HEREDOC
-#{screen_splash(ezpass)}
-Where would you like to start today?
-(1) Manhattan
-(2) Brooklyn
-(3) Queens
-(4) The Bronx
-(5) Staten Island
-(6) New Jersey
-HEREDOC
+  puts <<-HEREDOC
+  #{screen_splash(ezpass)}
+  Where would you like to start today?
+  HEREDOC
+  Location.print_hash
 end
 
-def areas
-   ["Manhattan", "Brooklyn", "Queens", "The Bronx", "Staten Island", "New Jersey"]
-end
 
-def second_screen(ezpass, destination)
+def second_screen(ezpass, location)
   puts screen_splash(ezpass)
-  current_area = areas[destination-1]
-  puts "You are now in #{current_area}"
+  #current_area = areas[destination]
+  puts "You are now in #{location}"
   puts "Where do you want to drive over?"
-  possible_crossings = Crossing.crossings_by_location(current_area)
-  possible_crossings.each_with_index do |crossing, index|
-    puts "   (#{index+1})  #{crossing.structure.name} -- #{crossing.end_location.name}"
-  end
+  cross_hash = Crossing.print_hash(location)
 end
-
-
-
-# SECOND SCREEN
-#                                       -----------------------
-#                                      | EZPass Balance: $X.XX |
-#                                       -----------------------
-#
-# You're now in ___.
-# Where do you want to drive over?
-# ...
-#
-# # THIRD SCREEN
-#                                        -----------------------
-#                                       | EZPass Balance: $X.XX |
-#                                        -----------------------
-#
-# You just drove over ___. That cost ___.
-# You're now in ___.
-# Where do you want to drive over?
-# ...

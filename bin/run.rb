@@ -1,21 +1,22 @@
 require_relative '../config/environment'
 
-# puts "Hello! May we have your name?"
-# name = STDIN.gets.chomp
 
 nyc_ezpass = EZPass.new(balance: 25.0)
 
 
-puts first_screen(nyc_ezpass)
-destination = STDIN.gets.chomp.to_i
-#
-possible_destination = second_screen(nyc_ezpass, destination)
+location = first_screen(nyc_ezpass)
+user_choice = STDIN.gets.chomp.to_i
 
-destination2 = (STDIN.gets.chomp.to_i)-1
-possible_destination[destination2]
+location = location[user_choice].name
 
 
-nyc_ezpass.debit(possible_destination[destination2].cost)
+loop do
+  new_location_hash = second_screen(nyc_ezpass, location)
 
+  user_choice = (STDIN.gets.chomp.to_i)
+  break if user_choice == 0
+  location = new_location_hash[user_choice].end_location.name
+  nyc_ezpass.debit(new_location_hash[user_choice].cost)
 
-binding.pry
+end
+  
