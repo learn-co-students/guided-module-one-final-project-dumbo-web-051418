@@ -53,7 +53,7 @@ end
 
 def print_transactions(nyc_ezpass)
   puts "\n"
-  puts "Your current balance is: #{'%.2f' % nyc_ezpass.balance}\n"
+  puts "Your current balance is: #{'%.2f' % nyc_ezpass.balance}\n\n"
   nyc_ezpass.print_transaction_ledger
-  puts "Good Bye"
+  puts "\nGood Bye"
 end
