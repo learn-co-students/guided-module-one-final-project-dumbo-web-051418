@@ -1,9 +1,9 @@
 #require_relative 'config/environment'
- require_relative 'bin/run'
+ # require_relative 'bin/run'
 require_relative 'config/environment'
 
 require_all 'app/models'
-require_relative 'db/seeds'
+#require_relative 'db/seeds'
 
 require 'sinatra/activerecord/rake'
 

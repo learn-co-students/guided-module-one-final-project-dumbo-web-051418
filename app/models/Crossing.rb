@@ -2,6 +2,7 @@ class Crossing < ActiveRecord::Base
   belongs_to :start_location, class_name: Location
   belongs_to :end_location, class_name: Location
   belongs_to :structure
+  has_many :transactions
 
   def cost
     has_toll ? self.structure.toll_amount : 0.0
@@ -28,6 +29,6 @@ class Crossing < ActiveRecord::Base
     print_this.each do |key, crossing|
       puts "(#{key})\t#{crossing.structure.name} -- To #{crossing.end_location.name}"
     end
-    
+
   end
 end

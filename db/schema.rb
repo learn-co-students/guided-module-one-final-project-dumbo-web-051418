@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180530183904) do
+ActiveRecord::Schema.define(version: 20180601132305) do
 
   create_table "crossings", force: :cascade do |t|
     t.string  "name"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20180530183904) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer "e_z_pass_id"
+    t.integer "ez_pass_id"
     t.integer "crossing_id"
   end
 

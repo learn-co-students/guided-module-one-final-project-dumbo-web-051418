@@ -26,3 +26,27 @@ def second_screen(ezpass, location)
   puts "Where do you want to drive over?"
   cross_hash = Crossing.print_hash(location)
 end
+
+def validate_input(location, user_choice)
+  while !location.keys.include?(user_choice)
+    puts "Please enter a valid number."
+    user_choice = STDIN.gets.chomp.to_i
+  end
+  return user_choice
+end
+
+def validate_input_2(location, user_choice)
+  if user_choice != 0
+    while !location.keys.include?(user_choice)
+      puts "Please enter a valid number."
+      user_choice = STDIN.gets.chomp.to_i
+    end
+  end
+  return user_choice
+end
+
+def create_transaction(nyc_ezpass, new_location_hash, user_choice)
+  transaction = Transaction.create(ez_pass_id: nyc_ezpass.id, crossing_id: new_location_hash[user_choice].id,)
+  nyc_ezpass.transactions << transaction
+  new_location_hash[user_choice].transactions << transaction
+end
