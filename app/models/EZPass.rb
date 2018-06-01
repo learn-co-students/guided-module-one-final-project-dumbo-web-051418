@@ -24,9 +24,17 @@ class EZPass < ActiveRecord::Base
   def transaction_ledger
     ledger_hash = Hash.new
     self.transactions.each do |transaction|
-      ledger_hash[transaction.id] = [transaction.crossing.structure.name, transaction.crossing.cost]
+      ledger_hash[transaction.id] = [transaction.crossing.structure.name, transaction.crossing.cost, transaction.created_at]
     end
     return ledger_hash
   end
+
+  def print_transaction_ledger
+    self.transaction_ledger.each do |transaction_id, transaction|
+      puts "#{transaction[2]}\t#{transaction[0]} --- $#{'%.2f' % transaction[1]}"
+    end
+  end
+
+  
 
 end

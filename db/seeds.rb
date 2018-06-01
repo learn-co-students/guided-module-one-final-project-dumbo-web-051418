@@ -1,3 +1,5 @@
+require_all 'app/models'
+
 Location.destroy_all
 loc_queens = Location.create(name: "Queens")
 loc_brooklyn = Location.create(name: "Brooklyn")

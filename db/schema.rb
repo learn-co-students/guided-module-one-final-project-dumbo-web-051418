@@ -34,8 +34,10 @@ ActiveRecord::Schema.define(version: 20180601132305) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer "ez_pass_id"
-    t.integer "crossing_id"
+    t.integer  "ez_pass_id"
+    t.integer  "crossing_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end

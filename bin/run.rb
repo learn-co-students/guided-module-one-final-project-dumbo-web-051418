@@ -13,6 +13,11 @@ location = location[user_choice].name
 loop do
   new_location_hash = second_screen(nyc_ezpass, location)
 
+  if new_location_hash.size == 0
+    puts "You do not have enough balance to proceed. \n Enjoy #{location}!"
+    break
+  end
+  
   user_choice =  STDIN.gets.chomp.to_i
   user_choice = validate_input_2(new_location_hash, user_choice)
   break if user_choice == 0
@@ -22,12 +27,10 @@ loop do
   create_transaction(nyc_ezpass, new_location_hash, user_choice)
 
   location = new_location_hash[user_choice].end_location.name
+  #debit from pass if crossing has toll
+  nyc_ezpass.debit(new_location_hash[user_choice].cost)
 
-  if nyc_ezpass.attempt_debit(new_location_hash[user_choice].cost)
-    nyc_ezpass.debit(new_location_hash[user_choice].cost)
-  else
-    puts "You don't have enough for this transaction. \nEnjoy #{new_location_hash[user_choice].start_location.name}."
-    break
-  end
 
 end
+
+print_transactions(nyc_ezpass)

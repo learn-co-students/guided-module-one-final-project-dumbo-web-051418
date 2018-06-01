@@ -16,16 +16,18 @@ class Crossing < ActiveRecord::Base
     self.all.select {|c| c.start_location_id == Location.id_number(name)}
   end
 
-  def self.make_hash(current_area)
+  def self.make_hash(current_area, ezpass)
     map_hash = Hash.new
     Crossing.crossings_by_location(current_area).each_with_index do |crossing, index|
-      map_hash[index+1] = crossing
+      if ezpass.attempt_debit(crossing.cost)
+        map_hash[index+1] = crossing
+      end
     end
     map_hash
   end
 
-  def self.print_hash(current_area)
-    print_this = make_hash(current_area)
+  def self.print_hash(current_area, ezpass)
+    print_this = make_hash(current_area, ezpass)
     print_this.each do |key, crossing|
       puts "(#{key})\t#{crossing.structure.name} -- To #{crossing.end_location.name}"
     end
